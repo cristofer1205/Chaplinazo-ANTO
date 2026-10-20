@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Historial de cambios · Antonella</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='history.js') }}" defer></script>
+</head>
+<body>
+<header class="site-header"><p class="eyebrow">Función solidaria · Chaplin Show</p><h1>Historial de cambios</h1>
+  <nav aria-label="Navegación principal"><a href="/">Plano de mesas</a><a href="/history" aria-current="page">Historial de cambios</a></nav>
+</header>
+<main>
+  <section class="history-card"><p>Los registros son inmutables. Las correcciones agregan nuevos registros.</p>
+  <button id="refresh-history" type="button" class="button-secondary">Actualizar historial</button>
+  <p id="history-status" role="status" aria-live="polite">Cargando historial…</p>
+  <ol id="history"></ol>
+  <button id="more-history" type="button" hidden>Cargar más antiguos</button></section>
+  <noscript>Se necesita JavaScript para consultar el historial.</noscript>
+</main>
+</body>
+</html>

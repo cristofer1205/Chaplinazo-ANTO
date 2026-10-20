@@ -1,0 +1,12 @@
+.git
+.atl
+.venv
+__pycache__
+**/__pycache__
+.pytest_cache
+.coverage
+*.sqlite*
+*.db*
+backups
+tests
+test-results

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Una noche de risas por Antonella</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+<header class="site-header"><p class="eyebrow">Función solidaria · Chaplin Show</p><h1>Una noche de risas por Antonella</h1>
+  <p class="intro">Una comunidad reunida para compartir alegría. 69 mesas · 300 lugares.</p>
+  <nav aria-label="Navegación principal"><a href="/" aria-current="page">Plano de mesas</a><a href="/history">Historial de cambios</a></nav>
+</header>
+<main>
+  <section class="summary-card" aria-labelledby="summary-title"><div class="section-heading"><div><p class="eyebrow">Juntos llegamos más lejos</p><h2 id="summary-title">Disponibilidad</h2></div><button id="refresh" type="button" class="button-secondary">Actualizar datos</button></div>
+    <p id="connection" role="status" aria-live="polite">Cargando disponibilidad…</p>
+    <div id="totals" class="metrics" aria-live="polite"><div class="metric"><span>Entradas registradas</span><strong>—</strong></div><div class="metric"><span>Lugares disponibles</span><strong>—</strong></div><div class="metric"><span>Mesas completas</span><strong>—</strong></div></div>
+    <div class="progress-track" role="progressbar" aria-label="Lugares registrados de 300" aria-valuemin="0" aria-valuemax="300" aria-valuetext="Disponibilidad cargando"><div id="capacity-progress" class="progress-fill"></div></div><p class="progress-caption">Meta de la sala: 300 lugares</p>
+  </section>
+  <section class="map-card" aria-labelledby="map-title"><div class="section-heading"><div><p class="eyebrow">Cada lugar cuenta</p><h2 id="map-title">Plano de mesas</h2></div></div>
+    <p>Seleccione una mesa en el plano. Cada mesa muestra su estado y el conteo de sillas.</p>
+    <ul class="map-legend" aria-label="Leyenda de disponibilidad">
+      <li><span class="legend-swatch empty" aria-hidden="true"></span>Vacía</li>
+      <li><span class="legend-swatch partial" aria-hidden="true"></span>Parcialmente ocupada</li>
+      <li><span class="legend-swatch full" aria-hidden="true"></span>Completa</li>
+    </ul>
+    <div class="map-scroll"><svg id="map" viewBox="140 215 1030 990" role="group" aria-labelledby="map-title">
+      <defs><clipPath id="venue-backdrop-clip" clipPathUnits="userSpaceOnUse">
+        <path d="M166 360 L480 240 L874 240 L1150 360 L1150 687 L1090 687 L1090 1184 L166 1184 Z"/>
+        <path d="M1090 687 H1142 V827 H1090 Z"/>
+      </clipPath></defs>
+      <image class="venue-image" href="{{ url_for('static', filename='venue-map.jpeg') }}" x="0" y="0" width="1600" height="1236" preserveAspectRatio="none" clip-path="url(#venue-backdrop-clip)" aria-hidden="true"/>
+      <path class="outline" d="M166 360 L480 240 L874 240 L1150 360 L1150 687 L1090 687 L1090 1184 L166 1184 Z"/>
+      <path class="stage" d="M426 228 H918 V278 L842 355 H506 L426 278 Z"/>
+      <text x="672" y="308" text-anchor="middle" class="stage-label">ESCENARIO</text>
+      <g id="map-tables"></g>
+    </svg></div>
+  </section>
+  <noscript>Se necesita JavaScript para consultar disponibilidad y registrar cambios.</noscript>
+</main>
+<dialog id="name-dialog" aria-labelledby="name-title"><form id="name-form" method="dialog">
+  <h2 id="name-title">Nombre para registrar cambios</h2><p>Este nombre se conserva solo en esta pestaña.</p>
+  <label for="actor">Nombre</label><input id="actor" maxlength="80" autocomplete="name" required>
+  <p id="name-error" role="alert"></p><button type="submit">Continuar al plano</button>
+</form></dialog>
+<dialog id="table-dialog" aria-labelledby="table-dialog-title"><h2 id="table-dialog-title"></h2>
+  <p id="table-level"></p><p id="table-count" aria-live="polite"></p>
+  <div class="counter"><button id="minus" type="button" aria-label="Liberar una silla">−</button><button id="plus" type="button" aria-label="Registrar una silla">+</button></div>
+  <p>Los cambios se guardan al instante. Puede cerrar con OK después de ver la confirmación.</p>
+  <p id="message" role="status" aria-live="polite"></p><button id="close-table" type="button">OK</button>
+</dialog>
+</body>
+</html>

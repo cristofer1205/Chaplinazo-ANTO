@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    init: true
+    user: "10001:10001"
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 100
+    mem_limit: 256m
+    cpus: 1.0
+    environment:
+      DATABASE: /data/sales.sqlite
+      WRITES_ENABLED: "${WRITES_ENABLED:-1}"
+      ALLOWED_ORIGINS: "${ALLOWED_ORIGINS:-https://antonella.wara-api.xyz,http://localhost:8000,http://127.0.0.1:8000}"
+    ports: ["127.0.0.1:${APP_PORT:-8000}:8000"]
+    volumes: [sales-data:/data]
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=32m"]
+    networks: [private]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/tables', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+volumes:
+  sales-data:
+networks:
+  private:
+    driver: bridge
+    # Project-scoped, never shared/external. Internal-only bridges on Docker 29
+    # suppress published ports; loopback publication is the ingress boundary.
+    external: false
